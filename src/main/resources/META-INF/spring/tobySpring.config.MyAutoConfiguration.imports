@@ -1,0 +1,6 @@
+tobySpring.config.autoConfig.DataSourceConfig
+tobySpring.config.autoConfig.PropertyPostProcessorConfig
+tobySpring.config.autoConfig.PropertyPlaceHolderConfig
+tobySpring.config.autoConfig.TomcatWebServerConfig
+tobySpring.config.autoConfig.JettyWebServerConfig
+tobySpring.config.autoConfig.DispatcherServletConfig
