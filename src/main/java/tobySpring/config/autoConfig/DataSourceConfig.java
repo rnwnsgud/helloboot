@@ -21,6 +21,20 @@ import java.sql.Driver;
 @EnableTransactionManagement
 public class DataSourceConfig {
 
+    @Bean
+    @ConditionalMyOnClass("com.zaxxer.hikari.HikariDataSource")
+    @ConditionalOnMissingBean
+    DataSource hikariDataSource(MyDataSourceProperties properties) {
+        HikariDataSource dataSource = new HikariDataSource();
+
+        dataSource.setDriverClassName(properties.getDriverClassName());
+        dataSource.setJdbcUrl(properties.getUrl());
+        dataSource.setUsername(properties.getUsername());
+        dataSource.setPassword(properties.getPassword());
+
+        return dataSource;
+    }
+
     // dataSource.setxxx 로 바로 넣지 않고 프로퍼티 클래스로부터 읽어다가 사용하는 방식으로 만든다
     @Bean
     @ConditionalOnMissingBean
@@ -36,19 +50,6 @@ public class DataSourceConfig {
         return dataSource;
     }
 
-    @Bean
-    @ConditionalMyOnClass("com.zaxxer.hikari.HikariDataSource")
-    @ConditionalOnMissingBean
-    DataSource hikariDataSource(MyDataSourceProperties properties) {
-        HikariDataSource dataSource = new HikariDataSource();
-
-        dataSource.setDriverClassName(properties.getDriverClassName());
-        dataSource.setJdbcUrl(properties.getUrl());
-        dataSource.setUsername(properties.getUsername());
-        dataSource.setPassword(properties.getPassword());
-
-        return dataSource;
-    }
 
     @Bean
     @ConditionalOnSingleCandidate(DataSource.class)
